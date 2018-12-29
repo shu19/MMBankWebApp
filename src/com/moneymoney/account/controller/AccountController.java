@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.moneymoney.account.SavingsAccount;
 import com.moneymoney.account.dao.SavingsAccountDAO;
 import com.moneymoney.account.dao.SavingsAccountDAOImpl;
+import com.moneymoney.account.service.SavingsAccountService;
+import com.moneymoney.account.service.SavingsAccountServiceImpl;
+import com.moneymoney.account.util.DBUtil;
 import com.moneymoney.exception.AccountNotFoundException;
 
 /**
@@ -34,6 +37,7 @@ public class AccountController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path=request.getServletPath();
+		SavingsAccountService savingsAccountService=new SavingsAccountServiceImpl();
 		
 		switch(path){
 		case "/addNewSA.mm":
@@ -45,14 +49,11 @@ public class AccountController extends HttpServlet {
 		case "/addNewAccount.mm":
 			String accounHolderName=request.getParameter("txtAccHN");
 			double accountBalance=Double.parseDouble(request.getParameter("txtBal"));
-			
-			boolean salary=true;
-			SavingsAccountDAO savingsAccountDAO=new SavingsAccountDAOImpl();
-			SavingsAccount s=new SavingsAccount(accounHolderName, accountBalance, salary);
+			boolean salary=request.getParameter("rgSalary").equalsIgnoreCase("yes")?true:false;
+
 			try {
-				savingsAccountDAO.createNewAccount(s);
+				savingsAccountService.createNewAccount(accounHolderName, accountBalance, salary);
 			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -61,7 +62,7 @@ public class AccountController extends HttpServlet {
 			response.sendRedirect("closeAccount.html");
 			System.out.println("close SA");
 			break;
-		case "/closeAccount":
+		case "/closeAccount.mm":
 			SavingsAccountDAO savingsAccountDAO1=new SavingsAccountDAOImpl();
 			int accountNumber=Integer.parseInt(request.getParameter("accountNumber"));
 			System.out.println(accountNumber);
@@ -73,6 +74,65 @@ public class AccountController extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case "/withdrawSA.mm":
+			response.sendRedirect("withdraw.html");
+			
+			break;
+		case "/withdrawForm.mm":
+			int accountNo=Integer.parseInt(request.getParameter("txtAccNo"));
+			double withdrawAmount=Double.parseDouble(request.getParameter("txtAmount"));
+			try {
+				savingsAccountService.withdraw(savingsAccountService.getAccountById(accountNo), withdrawAmount);
+				DBUtil.commit();
+			} catch (ClassNotFoundException | SQLException
+					| AccountNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		
+		case "/depositSA.mm":
+			response.sendRedirect("deposit.html");
+			
+			break;
+		case "/depositForm.mm":
+			
+			int depositAccountNo=Integer.parseInt(request.getParameter("txtAccNo"));
+			double depositAmount=Double.parseDouble(request.getParameter("txtAmount"));
+			try {
+				savingsAccountService.deposit(savingsAccountService.getAccountById(depositAccountNo), depositAmount);
+				DBUtil.commit();
+			} catch (ClassNotFoundException | SQLException
+					| AccountNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			break;
+		
+		case "/fundTransfer.mm":
+			response.sendRedirect("fundTransfer.html");
+			
+			break;
+		case "/fundTransferForm.mm":
+			
+			int senderAccountNo=Integer.parseInt(request.getParameter("txtSenderAccNo"));
+			int receiverAccountNo=Integer.parseInt(request.getParameter("txtReceiverAccNo"));
+			double transferAmount=Double.parseDouble(request.getParameter("txtAmount"));
+			try {
+				SavingsAccount sender=savingsAccountService.getAccountById(senderAccountNo);
+				SavingsAccount receiver=savingsAccountService.getAccountById(receiverAccountNo);
+				
+				savingsAccountService.fundTransfer(sender, receiver, transferAmount);
+			} catch (ClassNotFoundException | SQLException
+					| AccountNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			break;
+		
+		
 		}
 
 
