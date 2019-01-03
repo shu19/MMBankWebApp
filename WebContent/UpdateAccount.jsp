@@ -17,14 +17,15 @@
 
 </head>
 <body>
+	<header> <jsp:include page="header.html"></jsp:include> </header>
 
 	<div class="container col-md-4 col-md-offset-4">
 
 
-		<form action="updateSAForm.mm">
+		<form action="updateSavingAccount.mm">
 			<div class="form-group">
 				<label>Account No :</label> <input type="text" class="form-control"
-					placeholder="Name" disabled maxlength="25" name="txtAccNo"
+					placeholder="Name" maxlength="25" name="txtAccNo"
 					value="${requestScope.account.bankAccount.accountNumber}">
 			</div>
 
@@ -35,6 +36,11 @@
 					value="${requestScope.account.bankAccount.accountHolderName}">
 			</div>
 
+			<div class="form-group">
+				<label>Account Balance :</label> <input type="text" class="form-control"
+					placeholder="Name" maxlength="25" name="txtAccBal"
+					value="${requestScope.account.bankAccount.accountBalance}">
+			</div>
 
 			<div class="form-group">
 
@@ -44,7 +50,7 @@
 				<input type="radio" name="rgSalary" value="No"> No
 				</jstl:if>
 				<jstl:if test="${requestScope.account.salary == false}">
-					<input type="radio" name="rgSalary" value="Yes" > Yes				
+					<input type="radio" name="rgSalary" value="Yes"> Yes				
 				<input type="radio" name="rgSalary" value="No" checked> No
 				</jstl:if>
 
@@ -61,8 +67,6 @@
 
 
 	</div>
-
-	<footer> <embed type="text/html" src="footer.html"
-		width="100%"></footer>
+	<footer> <jsp:include page="footer.html"></jsp:include> </footer>
 </body>
 </html>
