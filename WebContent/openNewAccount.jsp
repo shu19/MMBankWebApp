@@ -13,66 +13,11 @@
 <link rel="stylesheet" href="css/style.css" type="text/css">
 <title>HDFC Bank</title>
 
-<style>
-nav {
-	margin-top: -70px;
-}
-
-header {
-	padding: 10px;
-}
-
-.footer-bottom {
-	padding: 25px 0 25px;
-	border-top: 1px solid #666;
-	background: #1e1e1e;
-}
-
-.copyright-text p {
-	color: #ccc;
-	margin-top: 0px;
-	margin-bottom: 0;
-	text-align: center;
-}
-
-footer {
-	position: relative;
-	margin-top: 542px;
-	margin-bottom: 0px;
-}
-</style>
 
 </head>
 <body>
 	<header>
-		<div>
-			<img src="images/logo.png">
-
-			<center>
-				<h1 style="position: relative; bottom: 60px;">
-					<b>HDFC Bank</b>
-				</h1>
-			</center>
-
-		</div>
-		<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-
-				<ul class="nav navbar-nav">
-					<li><a href="addNewSA.mm">Add New Account</a></li>
-					<li><a href="closeSA.mm">Close Saving Account</a></li>
-					<li><a href="searchAccount.html">Search Account</a></li>
-					<li><a href="viewaccount.html">View Account</a></li>
-					<li><a href="ViewAllCustomers.html">View All Customers</a></li>
-					<li><a href="UpdateCustomerForm.html">Update Customer Form</a>
-					</li>
-					<li><a href="WithdrawForm.html">Withdraw Form</a></li>
-					<li><a href="DepositForm.html">Deposit Form</a></li>
-					<li><a href="FundTransfer.html">Fund Transfer</a></li>
-				</ul>
-			</div>
-		</nav>
-
+		<jsp:include page="header.html"></jsp:include>
 	</header>
 	<div class="container col-md-4 col-md-offset-4">
 
@@ -82,21 +27,24 @@ footer {
 				<label>Name :</label> <input type="text" class="form-control"
 					placeholder="Name" pattern="[A-Za-z]+"
 					title="Digits and Special Characters are not allowed"
-					maxlength="25"
-					name="txtAccHN">
+					maxlength="25" name="txtAccHN">
 			</div>
-			
-			
+
+
 			<div class="form-group">
 				<label>Initial Balance :</label> <input type="text"
 					class="form-control" placeholder="Enter initial number"
-					
-					
 					name="txtBal">
 			</div>
-			
-			
-<!-- 			<div class="form-group">
+
+			<div class="form-group">
+				<label>Salary Account:</label> <input type="radio" name="rgSalary"
+					value="Yes"> Yes <input type="radio" name="rgSalary"
+					value="No"> No
+			</div>
+
+
+			<!-- 			<div class="form-group">
 				<label>Email Id:</label> <input type="email" class="form-control"
 					id="email" placeholder="Enter email">
 			</div>
@@ -113,7 +61,7 @@ footer {
 			</div>
  -->
 
-<!-- 			<label>Account Type :</label> <select class="btn btn-default">
+			<!-- 			<label>Account Type :</label> <select class="btn btn-default">
 				<option value="Saving">Saving</option>
 				<option value="Current">Current</option>
 			</select> <br />
@@ -130,18 +78,7 @@ footer {
 	</div>
 
 	<footer>
-		<div class="footer-bottom">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-12 ">
-						<div class="copyright-text">
-
-							<p>CopyRight © 2018 HDFC Bank Ltd. All rights reserved.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<jsp:include page="footer.html"></jsp:include>
 	</footer>
 </body>
 </html>

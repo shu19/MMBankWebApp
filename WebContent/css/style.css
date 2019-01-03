@@ -1,0 +1,26 @@
+nav {
+	margin-top: -70px;
+}
+
+header {
+	padding: 10px;
+}
+
+.footer-bottom {
+	padding: 25px 0 25px;
+	border-top: 1px solid #666;
+	background: #1e1e1e;
+}
+
+.copyright-text p {
+	color: #ccc;
+	margin-top: 0px;
+	margin-bottom: 0;
+	text-align: center;
+}
+
+footer {
+	position: relative;
+	margin-top: 538px;
+	margin-bottom: 0px;
+}
